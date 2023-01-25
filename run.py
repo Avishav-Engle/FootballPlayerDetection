@@ -1,17 +1,18 @@
 import argparse
 import time
 from pathlib import Path
-import numpy
 import cv2
-import torch
-import torch.backends.cudnn as cudnn
+import numpy as np
 from numpy import random
 from PIL import Image
+
+from sklearn.cluster import KMeans
+
 import torch
 from torch import nn
 import torchvision
-from sklearn.cluster import KMeans
-import numpy as np
+import torch.backends.cudnn as cudnn
+
 
 from yolov7-main.models.experimental import attempt_load
 from yolov7-main.utils.datasets import LoadStreams, LoadImages
@@ -121,28 +122,37 @@ def detect(save_img=False):
                 for c in det[:, -1].unique():
                     n = (det[:, -1] == c).sum()  # detections per class
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
-                ### my edit
+                
+                
+                # Our additions, passing image through BYOL and K-means for clustering
                 if dataset.mode == 'image':
-                  #build model
-                  resnet = torchvision.models.resnet50()#pretrained = 'true'
-                  backbone = nn.Sequential(*list(resnet.children())[:-1])
-                  byol_model = BYOL(backbone)
+                    
+                  # Build BYOL model
+                
+                  # device
                   device = "cuda" if torch.cuda.is_available() else "cpu"
+                
+                  # backbone for BYOL
+                  resnet = torchvision.models.resnet50()    
+                  backbone = nn.Sequential(*list(resnet.children())[:-1])
+                    
+                  # Build BYOL and load weights
+                  byol_model = BYOL(backbone)
                   byol_model.to(device)
-                  state = torch.load('/content/drive/MyDrive/Deep Learning Project/yolov7-main/yolov7-main/our_functions/BYOL_best_results.pt', map_location=device)
-                  byol_model.load_state_dict(state)
+                  byol_model.load_state_dict(torch.load('/our_functions/BYOL_best_results.pt', map_location=device))
                   byol_model.eval()
-                  #crop images
+                
+                  # Crop images
                   cropped_images = []
                   for *xyxy, conf, cls in reversed(det):
-                    #xyxy is the coordinates (in real position, no need to normalize)
-                    #conf -> confidence
-                    #cls -> label 0 ,1, 2, 3 (2 is player)
+                    # xyxy are bounding box coordinates
+                    #cls is label 0, 1, 2, 3 (2 is player)
                     if int(cls) == 2:
                         im = Image.fromarray(numpy.uint8(im0))
                         xyxy_tup = (a.item() for a in xyxy)
                         cropped_images.append(im.crop(xyxy_tup))
-                  # images to model
+                  
+                  # Kmeans(BYOL(images))
                   tensor_images = [my_transforms(image).unsqueeze(0) for image in cropped_images]
                   with torch.no_grad():
                       outputs = np.array([byol_model.clustering(tensor_image.to(device))[0].cpu().numpy() for tensor_image in tensor_images])
@@ -161,18 +171,20 @@ def detect(save_img=False):
                             f.write(('%g ' * len(line)).rstrip() % line + '\n')
 
                     if save_img or view_img:  # Add bbox to image
-                        # our changes
+                        
+                        # Our changes to the labelling
                         if dataset.mode == 'image':
-                            if int(cls) == 2: #player
+                            if int(cls) == 2: # Player
                               label = f'{names[int(cls)]} {conf:.2f} {player_team[j]}'
                               plot_one_box(xyxy, im0, label=label, color=colors[int(cls)+2*player_team[j]], line_thickness=1)
                               j += 1
-                            else:
+                            else:             # Not a Player
                               label = f'{names[int(cls)]} {conf:.2f}'
                               plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=1)
-                        else:
+                        else:                 # Video, not image
                           label = f'{names[int(cls)]} {conf:.2f}'
                           plot_one_box(xyxy, im0, label=label, color=colors[int(cls)], line_thickness=1)
+            
             # Print time (inference + NMS)
             print(f'{s}Done. ({(1E3 * (t2 - t1)):.1f}ms) Inference, ({(1E3 * (t3 - t2)):.1f}ms) NMS')
 
@@ -223,19 +235,12 @@ if __name__ == '__main__':
     parser.add_argument('--classes', nargs='+', type=int, help='filter by class: --class 0, or --class 0 2 3')
     parser.add_argument('--agnostic-nms', action='store_true', help='class-agnostic NMS')
     parser.add_argument('--augment', action='store_true', help='augmented inference')
-    parser.add_argument('--update', action='store_true', help='update all models')
-    parser.add_argument('--project', default='runs/detect', help='save results to project/name')
-    parser.add_argument('--name', default='exp', help='save results to project/name')
+    parser.add_argument('--project', default='detections', help='save results to project/name')
+    parser.add_argument('--name', default='run', help='save results to project/name')
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
     parser.add_argument('--no-trace', action='store_true', help='don`t trace model')
     opt = parser.parse_args()
     print(opt)
-    #check_requirements(exclude=('pycocotools', 'thop'))
 
     with torch.no_grad():
-        if opt.update:  # update all models (to fix SourceChangeWarning)
-            for opt.weights in ['yolov7.pt']:
-                detect()
-                strip_optimizer(opt.weights)
-        else:
-            detect()
+        detect()
