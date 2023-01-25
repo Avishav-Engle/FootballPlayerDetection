@@ -48,17 +48,8 @@ pip install -r requirements.txt
 ```
 ------------------------
 ## Usage
-```python
-from PencilDrawingBySketchAndTone import *
-import matplotlib.pyplot as plt
-ex_img = io.imread('./inputs/11--128.jpg')
-pencil_tex = './pencils/pencil1.jpg'
-ex_im_pen = gen_pencil_drawing(ex_img, kernel_size=8, stroke_width=0, num_of_directions=8, smooth_kernel="gauss",
-                       gradient_method=0, rgb=True, w_group=2, pencil_texture_path=pencil_tex,
-                       stroke_darkness= 2,tone_darkness=1.5)
-plt.rcParams['figure.figsize'] = [16,10]
-plt.imshow(ex_im_pen)
-plt.axis("off")
+```bash
+python detect.py --weights 'yolov7_training.pt' --conf 0.25 --img-size 640 --source 'demo_image.jpg' --no-trace
 ```
 
 ### Parameters
