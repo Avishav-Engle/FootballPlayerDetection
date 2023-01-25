@@ -49,7 +49,7 @@ pip install -r requirements.txt
 ------------------------
 ## Usage
 ```bash
-python detect.py --weights 'yolov7_training.pt' --conf 0.25 --img-size 640 --source 'demo_image.jpg' --no-trace
+python detect.py --weights 'yolov7_training.pt' --source 'demo_image.jpg' --no-trace
 ```
 
 ### Parameters
