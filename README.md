@@ -13,7 +13,7 @@ We can divide the workflow into 2 main steps:
 2. Clustering of players from **image** to their two teams.
 
 Combining the results from these steps should yield the desired result. The workflow can be depicted as follows:
-![alt text](https://github.com/taldatech/image2pencil-drawing/blob/master/images/Workflow.JPG)
+![image](https://user-images.githubusercontent.com/82023333/214570149-78c8ac6d-2725-493b-a1fc-227fd09cc1af.png)
 
 # Usage
 ```python
@@ -47,4 +47,4 @@ plt.axis("off")
 # Reference
 [1] Lu C, Xu L, Jia J. Combining sketch and tone for pencil drawing production[C]//Proceedings of the Symposium on Non-Photorealistic Animation and Rendering. Eurographics Association, 2012: 65-73.
 
-[2] Matlab implementation by "candtcat1992" - https://github.com/candycat1992/PencilDrawing
+[2] Paperspace Blog "How to train and use a custom YOLOv7 model" - https://blog.paperspace.com/yolov7/
