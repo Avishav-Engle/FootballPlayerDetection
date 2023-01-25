@@ -1,7 +1,0 @@
-train: /content/drive/MyDrive/yolov7-main/football-players-detection-2/train/images
-val: /content/drive/MyDrive/yolov7-main/football-players-detection-2/valid/images
-test: /content/drive/MyDrive/yolov7-main/football-players-detection-2/test/images
-
-# Classes
-nc: 4  # number of classes
-names: ['ball', 'goalkeeper', 'player', 'referee']  # class names
