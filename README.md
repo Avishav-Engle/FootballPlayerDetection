@@ -13,7 +13,7 @@ We can divide the workflow into 2 main steps:
 2. Clustering of players from **image** to their two teams.
 
 Combining the results from these steps should yield the desired result. The workflow can be depicted as follows:
-![image](https://user-images.githubusercontent.com/82023333/214570149-78c8ac6d-2725-493b-a1fc-227fd09cc1af.png)
+![image](https://user-images.githubusercontent.com/82023333/214572202-50d54131-742e-4efa-b7d7-7fb001589364.png)
 
 # Usage
 ```python
