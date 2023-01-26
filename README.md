@@ -66,7 +66,7 @@ python run.py --yolo-weights 'path/to/YOLO/weights.pt' --byol-weights 'path/to/B
 * save-txt = save results to *.txt
 * save-conf = save confidences in --save-txt labels
 * nosave = do not save images/videos
-* classes = filter by class: --class 0, or --class 0 2 3
+* classes = filter by class: --class 0, or --class 0 2 3 (0:ball, 1:goalkeeper, 2:player, 3:referee)
 * agnostic-nms = class-agnostic NMS
 * augment = augmented inference
 * project = save results to project/name (default='detections')
@@ -89,3 +89,5 @@ python run.py --yolo-weights 'path/to/YOLO/weights.pt' --byol-weights 'path/to/B
 [1] Official YOLOv7 - Implementation of paper - https://github.com/WongKinYiu/yolov7
 
 [2] Paperspace Blog "How to train and use a custom YOLOv7 model" - https://blog.paperspace.com/yolov7/
+
+[3] BYOL - Technion DL Tutorial - Tal Daniel - https://github.com/taldatech/ee046211-deep-learning/blob/main/ee046211_tutorial_09_self_supervised_representation_learning.ipynb
