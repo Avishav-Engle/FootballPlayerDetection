@@ -26,3 +26,4 @@ ipython  # interactive notebook
 psutil  # system utilization
 thop  # FLOPs computation
 lightly # for BYOL network
+scikit-learn # for K-means
