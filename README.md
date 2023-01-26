@@ -47,8 +47,11 @@ pip install -r requirements.txt
 Download the weights for each of the networks, they're stored here:
 https://drive.google.com/drive/folders/1rpshi_ZycbRSJtwy1QXx73oTUWTzcJgk?usp=sharing
 
+### 4. Clone this repo
+
 ------------------------
 ## Usage
+Open a terminal inside the cloned repo and run the following:
 ```bash
 python run.py --yolo-weights 'path/to/YOLO/weights.pt' --byol-weights 'path/to/BYOL/weights.pt' --source 'path/to/source/image_or_video'
 ```
