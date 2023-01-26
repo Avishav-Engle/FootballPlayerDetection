@@ -82,10 +82,12 @@ python run.py --yolo-weights 'path/to/YOLO/weights.pt' --byol-weights 'path/to/B
 | File name                 | Purpose                                                                            |
 |---------------------------|------------------------------------------------------------------------------------|
 | `Readme.md`               | Explanation of repo contents and how to use them                                   |
-| `run.py`                  | Run end to end detect algorithm.                                                   |
+| `requirements.txt`        | Requirements file for all the algorithms                                           |
 | `yolov7-main`             | Directory of YOLOv7 codebase                                                       |
 | `byol-main.py`            | BYOL codebase                                                                      |
-| `requirements.txt`        | Requirements file for all the algorithms                                           |
+| `run.py`                  | Run end to end detect algorithm.                                                   |
+| `Other`                   | Directory with all other code we used during training                              |
+
 
 
 ------------------------
