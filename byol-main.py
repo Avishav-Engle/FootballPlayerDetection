@@ -1,23 +1,25 @@
+import os
+import copy
+import numpy as np
+import cv2
+import glob
+
+from sklearn.cluster import KMeans
+
 import torch
 from torch import nn
 import torchvision
-import copy
+import torchvision.transforms as transforms
+from torch.optim.lr_scheduler import StepLR
+from torch.optim.lr_scheduler import ReduceLROnPlateau
+from torchsummary import summary
+
 from lightly.data import LightlyDataset
 from lightly.data import SimCLRCollateFunction
 from lightly.loss import NegativeCosineSimilarity
 from lightly.models.modules import BYOLProjectionHead, BYOLPredictionHead
 from lightly.models.utils import deactivate_requires_grad
 from lightly.models.utils import update_momentum
-import numpy as np
-import cv2
-import glob
-import torchvision.transforms as transforms
-from sklearn.cluster import KMeans
-from google.colab import drive
-from torch.optim.lr_scheduler import StepLR
-from torch.optim.lr_scheduler import ReduceLROnPlateau
-from torchsummary import summary
-import os
 
 my_transforms = transforms.Compose([
     transforms.ToTensor(),
