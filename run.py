@@ -24,7 +24,7 @@ from BYOL-main import my_transforms, BYOL
 
 
 def detect(save_img=False):
-    source, weights, view_img, save_txt, imgsz, trace = opt.source, opt.weights, opt.view_img, opt.save_txt, opt.img_size, not opt.no_trace
+    source, yolo_weights, byol_weights, view_img, save_txt, imgsz, trace = opt.source, opt.yolo_weights, opt.byol_weights, opt.view_img, opt.save_txt, opt.img_size, not opt.no_trace
     save_img = not opt.nosave and not source.endswith('.txt')  # save inference images
     webcam = source.isnumeric() or source.endswith('.txt') or source.lower().startswith(
         ('rtsp://', 'rtmp://', 'http://', 'https://'))
@@ -39,7 +39,7 @@ def detect(save_img=False):
     half = device.type != 'cpu'  # half precision only supported on CUDA
 
     # Load model
-    model = attempt_load(weights, map_location=device)  # load FP32 model
+    model = attempt_load(yolo_weights, map_location=device)  # load FP32 model
     stride = int(model.stride.max())  # model stride
     imgsz = check_img_size(imgsz, s=stride)  # check img_size
 
@@ -139,7 +139,7 @@ def detect(save_img=False):
                   # Build BYOL and load weights
                   byol_model = BYOL(backbone)
                   byol_model.to(device)
-                  byol_model.load_state_dict(torch.load('/our_functions/BYOL_best_results.pt', map_location=device))
+                  byol_model.load_state_dict(torch.load(byol_weights, map_location=device))
                   byol_model.eval()
                 
                   # Crop images
@@ -222,7 +222,8 @@ def detect(save_img=False):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', nargs='+', type=str, default='yolov7.pt', help='model.pt path(s)')
+    parser.add_argument('--yolo-weights', nargs='+', type=str, default='YOLO.pt', help='yolo-model.pt path(s)')
+    parser.add_argument('--byol-weights', nargs='+', type=str, default='BYOL.pt', help='byol-model.pt path(s)')
     parser.add_argument('--source', type=str, default='inference/images', help='source')  # file/folder, 0 for webcam
     parser.add_argument('--img-size', type=int, default=640, help='inference size (pixels)')
     parser.add_argument('--conf-thres', type=float, default=0.25, help='object confidence threshold')
