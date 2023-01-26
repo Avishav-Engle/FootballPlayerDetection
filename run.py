@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 from numpy import random
 from PIL import Image
+import sys
 
 from sklearn.cluster import KMeans
 
@@ -13,7 +14,7 @@ from torch import nn
 import torchvision
 import torch.backends.cudnn as cudnn
 
-
+sys.path.append('yolov7-main')
 from yolov7-main.models.experimental import attempt_load
 from yolov7-main.utils.datasets import LoadStreams, LoadImages
 from yolov7-main.utils.general import check_img_size, check_requirements, check_imshow, non_max_suppression, apply_classifier, \
@@ -149,7 +150,7 @@ def detect(save_img=False):
                     #cls is label 0, 1, 2, 3 (2 is player)
                     if int(cls) == 2:
                         im = Image.fromarray(numpy.uint8(im0))
-                        xyxy_tup = (a.item() for a in xyxy)
+                        xyxy_tup = tuple(a.item() for a in xyxy)
                         cropped_images.append(im.crop(xyxy_tup))
                   
                   # Kmeans(BYOL(images))
@@ -223,7 +224,7 @@ def detect(save_img=False):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--yolo-weights', nargs='+', type=str, default='YOLO.pt', help='yolo-model.pt path(s)')
-    parser.add_argument('--byol-weights', nargs='+', type=str, default='BYOL.pt', help='byol-model.pt path(s)')
+    parser.add_argument('--byol-weights', type=str, default='BYOL.pt', help='byol-model.pt path(s)')
     parser.add_argument('--source', type=str, default='inference/images', help='source')  # file/folder, 0 for webcam
     parser.add_argument('--img-size', type=int, default=640, help='inference size (pixels)')
     parser.add_argument('--conf-thres', type=float, default=0.25, help='object confidence threshold')
