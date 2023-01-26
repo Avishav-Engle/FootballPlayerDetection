@@ -20,7 +20,7 @@ from yolov7-main.utils.general import check_img_size, check_requirements, check_
     scale_coords, xyxy2xywh, strip_optimizer, set_logging, increment_path
 from yolov7-main.utils.plots import plot_one_box
 from yolov7-main.utils.torch_utils import select_device, load_classifier, time_synchronized, TracedModel
-from BYOL-main import my_transforms, BYOL
+from byol-main import my_transforms, BYOL
 
 
 def detect(save_img=False):
