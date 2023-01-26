@@ -82,6 +82,7 @@ python run.py --yolo-weights 'path/to/YOLO/weights.pt' --byol-weights 'path/to/B
 | `Readme.md`               | Explanation of repo contents and how to use them                                   |
 | `run.py`                  | Run end to end detect algorithm.                                                   |
 | `yolov7-main   `          | Directory of YOLOv7 codebase                                                       |
+| `byol-main.py   `         | BYOL codebase                                                                      |
 
 
 ------------------------
