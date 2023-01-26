@@ -4,7 +4,7 @@
 * [Overview](#overview)
 * [Installation Guide](#installation-guide)
 * [Usage](#usage)
-* [Files in repo](#files-in-the-repository)
+* [Files in repo](#files-in-repo)
 * [References](#references)
 ------------------------
 ## Overview
@@ -55,26 +55,33 @@ python run.py --yolo-weights 'path/to/YOLO/weights.pt' --byol-weights 'path/to/B
 ```
 
 ### Parameters
-* kernel_size = size of the line segement kernel (usually 1/30 of the height/width of the original image)
-* stroke_width = thickness of the strokes in the Stroke Map (0, 1, 2)
-* num_of_directions = stroke directions in the Stroke Map (used for the kernels)
-* smooth_kernel = how the image is smoothed (Gaussian Kernel - "gauss", Median Filter - "median")
-* gradient_method = how the gradients for the Stroke Map are calculated (0 - forward gradient, 1 - Sobel)
-* rgb = True if the original image has 3 channels, False if grayscale
-* w_group = 3 possible weight groups (0, 1, 2) for the histogram distribution, according to the paper (brighter to darker)
-* pencil_texture_path = path to the Pencil Texture Map to use (4 options in "./pencils", you can add your own)
-* stroke_darkness = 1 is the same, up is darker.
-* tone_darkness = as above
+* yolo-weights = pretrained weights for YOLO network
+* byol-weights = pretrained weights for BYOL network
+* source = path to source image or video
+* img-size = inference size in pixels (default=640)
+* conf-thres = object confidence threshold (default=0.25)
+* iou-thres = IOU threshold for NMS (default=0.45)
+* device = cuda device, i.e. 0 or 0,1,2,3 or cpu (default='')
+* view-img = display results
+* save-txt = save results to *.txt
+* save-conf = save confidences in --save-txt labels
+* nosave = do not save images/videos
+* classes = filter by class: --class 0, or --class 0 2 3
+* agnostic-nms = class-agnostic NMS
+* augment = augmented inference
+* project = save results to project/name (default='detections')
+* name = save results to project/name (default='run')
+* exist-ok = existing project/name ok, do not increment
+* no-trace = don`t trace model
 
 ------------------------
 ## Files in repo
 
-| File name                                                     | Purpose                                                                                                                                       |
-|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| `train_model.py`                                              | train Resnet18 model with configuration from CLIP.                                                                                            |
-| `test_model.py`                                               | load trained model and test on dataset described with json annotation file (default test set of FOOD101).                                     |
-| `sample_test.py`                                              | load trained model and test on single image and display with ingredients.                                                                     |
-| `Data/IngredientsLoader.py`                                   | modified data loader for parsing the annotation file and the relevant images.                                                                 |
+| File name                 | Purpose                                                                            |
+|---------------------------|------------------------------------------------------------------------------------|
+| `Readme.md`               | Explanation of repo contents and how to use them                                   |
+| `run.py`                  | Run end to end detect algorithm.                                                   |
+| `yolov7-main   `          | Directory of YOLOv7 codebase                                                       |
 
 
 ------------------------
