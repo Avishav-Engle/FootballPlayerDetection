@@ -34,12 +34,9 @@ Combining the results from these steps should yield the desired result. The work
 
 ### 1. Virtual Environment
 (for example)
-#### 1.1. Create a virtual environment
+#### 1.1. Create and activate virtual environment
 ```bash
 python3 -m venv venv
-```
-#### 1.2. Activate the virtual environment
-```bash
 source venv/bin/activate
 ```
 ### 2. Install Requirements
@@ -49,6 +46,7 @@ pip install -r requirements.txt
 ### 3. Download the weights
 Download the weights for each of the networks, they're stored here:
 https://drive.google.com/drive/folders/1rpshi_ZycbRSJtwy1QXx73oTUWTzcJgk?usp=sharing
+
 ------------------------
 ## Usage
 ```bash
