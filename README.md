@@ -26,13 +26,14 @@ Combining the results from these steps should yield the desired result. The work
 
 ------------------------
 ## Installation Guide
-### Prerequisites
+### Prerequisites (flexible)
 | Library                | Version |
 |------------------------|---------|
-| `Python`               | `3.9`   |
-| `cuda (for GPU usage)` | `11.3 ` |
+| `Python`               | `3.8`   |
+| `cuda (for GPU usage)` | `11.6` |
 
 ### 1. Virtual Environment
+(for example)
 #### 1.1. Create a virtual environment
 ```bash
 python3 -m venv venv
@@ -41,11 +42,11 @@ python3 -m venv venv
 ```bash
 source venv/bin/activate
 ```
-#### 1.3. Install the requirements
+### 2. Install Requirements
 ```bash
 pip install -r requirements.txt
 ```
-#### 1.4. Download the weights
+### 3. Download the weights
 Download the weights for each of the networks, they're stored here:
 https://drive.google.com/drive/folders/1rpshi_ZycbRSJtwy1QXx73oTUWTzcJgk?usp=sharing
 ------------------------
@@ -81,8 +82,9 @@ python run.py --yolo-weights 'path/to/YOLO/weights.pt' --byol-weights 'path/to/B
 |---------------------------|------------------------------------------------------------------------------------|
 | `Readme.md`               | Explanation of repo contents and how to use them                                   |
 | `run.py`                  | Run end to end detect algorithm.                                                   |
-| `yolov7-main   `          | Directory of YOLOv7 codebase                                                       |
-| `byol-main.py   `         | BYOL codebase                                                                      |
+| `yolov7-main`             | Directory of YOLOv7 codebase                                                       |
+| `byol-main.py`            | BYOL codebase                                                                      |
+| `requirements.txt`        | Requirements file for all the algorithms                                           |
 
 
 ------------------------
