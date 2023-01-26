@@ -51,7 +51,7 @@ https://drive.google.com/drive/folders/1rpshi_ZycbRSJtwy1QXx73oTUWTzcJgk?usp=sha
 ------------------------
 ## Usage
 ```bash
-python run.py --yolo-weights 'path/to/YOLO/weights.pt' --byol-weights 'path/to/BYOL/weights.pt' --source 'path/to/source/image_or_video' --no-trace
+python run.py --yolo-weights 'path/to/YOLO/weights.pt' --byol-weights 'path/to/BYOL/weights.pt' --source 'path/to/source/image_or_video'
 ```
 
 ### Parameters
