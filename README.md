@@ -42,14 +42,16 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 #### 1.3. Install the requirements
-Install requirements and GUI for display result on sample.
 ```bash
 pip install -r requirements.txt
 ```
+#### 1.4. Download the weights
+Download the weights for each of the networks, they're stored here:
+https://drive.google.com/drive/folders/1rpshi_ZycbRSJtwy1QXx73oTUWTzcJgk?usp=sharing
 ------------------------
 ## Usage
 ```bash
-python detect.py --weights 'yolov7_training.pt' --source 'demo_image.jpg' --no-trace
+python run.py --yolo-weights 'path/to/YOLO/weights.pt' --byol-weights 'path/to/BYOL/weights.pt' --source 'path/to/source/image_or_video' --no-trace
 ```
 
 ### Parameters
